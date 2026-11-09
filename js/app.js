@@ -55,8 +55,15 @@
   function rows(lines) {
     return lines.map(l => {
       const g = TR.G[l.code];
+      /* A charge the Surcharges tab excludes is shown and not counted. Saying
+         so on the row is not decoration: without it the figures on screen do
+         not add up to the total underneath them, and the learner is left to
+         work out which line is the odd one. The document says the same. */
+      const out = l.in_total === false;
       const why = g ? `<span class="why">${g.full}${l.note ? " · " + esc(l.note) : ""}. <button type="button" data-g="${l.code}">What is this?</button></span>` : "";
-      return `<tr class="${l.code === "ETS" ? "eco" : ""}"><td>${esc(l.label.toUpperCase())}${why}</td><td class="num qty">${l.qty > 1 ? l.qty + " × " + eur(l.unit_price) : ""}</td><td class="num">${eur(l.amount)}</td></tr>`;
+      const mark = out ? `<span class="out-tag">not in the total</span>` : "";
+      const cls = [l.code === "ETS" ? "eco" : "", out ? "out" : ""].filter(Boolean).join(" ");
+      return `<tr class="${cls}"><td>${esc(l.label.toUpperCase())}${mark}${why}</td><td class="num qty">${l.qty > 1 ? l.qty + " × " + eur(l.unit_price) : ""}</td><td class="num">${eur(l.amount)}</td></tr>`;
     }).join("");
   }
   const cell = (k, v) => `<div><span>${k}</span><strong>${esc(v)}</strong></div>`;
@@ -87,7 +94,7 @@
         + cell("Agent at origin", po.agent) + cell("Terminal", s && s.legs[0].terminal ? s.legs[0].terminal : "—") + cell("Trip code", s ? s.tripcode : "—");
       $("t-freight").innerHTML = `<tr><th>Concept</th><th>Units</th><th>Amount</th></tr>` + rows(q.lines.filter(l => l.group === "freight")) + `<tr class="sub"><td>Total freight</td><td></td><td class="num">${eur(q.total_freight)}</td></tr>`;
       $("h-sur").textContent = "Surcharges";
-      $("t-sur").innerHTML = rows(q.lines.filter(l => l.group === "surcharge")) + `<tr class="sub"><td>Total surcharges</td><td></td><td class="num">${eur(q.total_surcharges)}</td></tr><tr class="info"><td colspan="3">*To be used as information for the commercial offer.</td></tr>`;
+      $("t-sur").innerHTML = rows(q.lines.filter(l => l.group === "surcharge")) + `<tr class="sub"><td>Total surcharges</td><td></td><td class="num">${eur(q.total_surcharges)}</td></tr><tr class="info"><td colspan="3">Charges shown greyed are part of the operation but are not charged by SDG Lines, so they are not in the total.</td></tr>`;
       $("d-total-l").textContent = "Total amount quotation";
     } else {
       const pd = ix.ports[q.port];

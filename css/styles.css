@@ -163,3 +163,14 @@ footer.site{font-size:.76rem;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:
 .pdf-link a:focus-visible {
   background: var(--pale, #CFE2F3);
 }
+
+/* Charges that are shown but not added to the total: today AMS, and customs
+   clearance, which SDG Lines does not perform. Greyed, and labelled, so the
+   column of figures still adds up to the total printed under it. */
+.grid tr.out td, table tr.out td { color: var(--ink-2); }
+.out-tag {
+  display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 999px;
+  background: var(--panel); border: 1px solid var(--line);
+  font-size: 10px; font-weight: 700; letter-spacing: .3px; color: var(--ink-2);
+  text-transform: none; vertical-align: 1px;
+}

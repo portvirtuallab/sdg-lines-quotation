@@ -34,7 +34,7 @@
     PLUGIN: { t: "Plug-in", full: "Reefer power supply", what: "Electricity to keep a reefer at the set temperature while at the terminal.", sim: "Daily rate of the equipment × 2 days included × units.", src: ["sur"] },
     ETS: { t: "ETS", full: "EU Emissions Trading System", what: "Shipping companies must buy allowances (EUAs) for the CO₂ their ships emit on voyages to, from and within the EU. Carriers pass this cost on as a surcharge.", sim: "CO₂ of the voyage (t) × EUA price × units, plus a fixed fee when the result is below the threshold (Settings tab).", src: ["ets"] },
     CUSTOM_CLEARANCE: { t: "Customs clearance", full: "Export or import clearance", what: "Filing the customs declaration. Shown for information so the forwarder can build a complete commercial offer.", sim: "Per booking, by port category: €35 to €50 (informative *).", src: ["kvk", "inco"] },
-    CONTROL: { t: "Control", full: "Inspection control", what: "Cost of a physical or documentary inspection if the authorities select the shipment. Informative only.", sim: "Per unit, by port category: €20 to €35 (informative *).", src: ["kvk"] },
+    CONTROL: { t: "Control", full: "Inspection control", what: "Cost of a physical or documentary inspection if the authorities select the shipment. SDG Lines withdrew it from the tariff in November 2026: the carrier does not perform the inspection and does not bill it. It still exists in the trade, and a forwarder building a full offer has to allow for it.", sim: "No longer quoted. Historic quotations priced it per unit by port category, €20 to €35.", src: ["kvk"] },
     CATEGORY: { t: "Port category", full: "A, B, C, D", what: "SDG Lines groups ports by size and cost level. Category A ports (Rotterdam, Antwerp, Busan, Yantian) are the most efficient and the cheapest per container; category D ports are the most expensive.", sim: "Category is in the Ports tab and drives THC, BAF and every surcharge.", src: ["sdg"] },
     CO2: { t: "CO₂ saving", full: "Sea vs road", what: "Short-sea shipping emits less CO₂ than trucks for the same cargo. The figure compares the voyage with the same cargo moved by road.", sim: "Distance (NM) × equipment emission factor; road = sea × 1.37.", src: ["glec"] }
   };
@@ -44,7 +44,7 @@
     ["Why is the same 20' container cheaper to load in Rotterdam than in Bari?", "Rotterdam is a category A port and Bari is category D. THC, BAF and the other surcharges increase with each category step."],
     ["The shipper did not send the VGM. What happens to the container?", "Under SOLAS it cannot be loaded. The carrier may weigh it and charge for the service, which is why the VGM line exists."],
     ["Why do some routes show 'via Barcelona'?", "No single SDG Lines service calls at both ports, so the cargo is transshipped at the Barcelona hub from one service to another."],
-    ["Why are customs clearance and control marked with an asterisk?", "They are informative. They depend on the customs broker and on whether an inspection happens, but the forwarder needs them to build a complete offer."]
+    ["Why is customs clearance shown but not added to the total?", "Because SDG Lines does not perform it. It is a third-party cost that belongs to the operation, so the quotation shows it to be complete, and leaves it out of what the carrier is charging you. Inspection control used to be quoted the same way and was withdrawn altogether in November 2026."]
   ];
 
   function render(el) {
