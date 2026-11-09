@@ -1,0 +1,1304 @@
+{
+  "Settings": [
+    {
+      "key": "eua_price_eur_t",
+      "value": 73.59,
+      "description": "EU Allowance price (€/tonne CO2) used for the ETS surcharge"
+    },
+    {
+      "key": "ets_admin_fee_eur",
+      "value": 20,
+      "description": "Fixed ETS fee added when the ETS cost is below the threshold"
+    },
+    {
+      "key": "ets_fee_threshold_eur",
+      "value": 20,
+      "description": "ETS cost below which the admin fee is added"
+    },
+    {
+      "key": "baf_category_step",
+      "value": 1.07,
+      "description": "BAF multiplier per port category step (A=1, B=1.07, C=1.07², D=1.07³)"
+    },
+    {
+      "key": "port_additional_pct",
+      "value": 0.2,
+      "description": "Port additionals as a share of THC"
+    },
+    {
+      "key": "truck_co2_ratio",
+      "value": 1.37,
+      "description": "Road CO2 compared with sea CO2 for the same shipment"
+    },
+    {
+      "key": "plugin_days_included",
+      "value": 2,
+      "description": "Reefer plug-in days included in the quotation"
+    },
+    {
+      "key": "freight_validity_days",
+      "value": 30,
+      "description": "Validity of container/RORO quotations"
+    },
+    {
+      "key": "arrival_validity_days",
+      "value": 15,
+      "description": "Validity of arrival charges quotations"
+    },
+    {
+      "key": "quote_prefix_freight",
+      "value": "SDG",
+      "description": "Quotation number prefix (freight)"
+    },
+    {
+      "key": "quote_prefix_arrival",
+      "value": "AC",
+      "description": "Quotation number prefix (arrival charges)"
+    },
+    {
+      "key": "next_number_freight",
+      "value": 588,
+      "description": "Next freight quotation number this year"
+    },
+    {
+      "key": "next_number_arrival",
+      "value": 277,
+      "description": "Next arrival charges number this year"
+    },
+    {
+      "key": "usd_eur",
+      "value": 0.88767,
+      "description": "Exchange rate USD→EUR (reference, Drewry WCI)"
+    },
+    {
+      "key": "freight_mode",
+      "value": "corrected",
+      "description": "corrected = freight × equipment factor × units. legacy = reproduce the old sheet exactly"
+    },
+    {
+      "key": "hub_port",
+      "value": "BARCELONA",
+      "description": "Main transshipment hub"
+    }
+  ],
+  "Ports": [
+    {
+      "port": "BARCELONA",
+      "name": "Barcelona",
+      "country": "Spain",
+      "locode": "ESBCN",
+      "lat": 41.3793,
+      "lon": 2.1885,
+      "region": "West Med",
+      "teu": 3500000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Barcelona",
+      "owner_rep": "Joan Mariné Rodríguez",
+      "email": "barcelona@sdglines.com"
+    },
+    {
+      "port": "ANTWERP",
+      "name": "Antwerp",
+      "country": "Belgium",
+      "locode": "BEANR",
+      "lat": 51.2194,
+      "lon": 4.4025,
+      "region": "Northern Europe",
+      "teu": 12020000,
+      "category": "A",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Belgium",
+      "owner_rep": "Sophie Van Damme",
+      "email": "antwerp@sdglines.com"
+    },
+    {
+      "port": "ROTTERDAM",
+      "name": "Rotterdam",
+      "country": "Netherlands",
+      "locode": "NLRTM",
+      "lat": 51.9225,
+      "lon": 4.47917,
+      "region": "Northern Europe",
+      "teu": 15300000,
+      "category": "A",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Netherlands",
+      "owner_rep": "Pieter van den Berg",
+      "email": "rotterdam@sdglines.com"
+    },
+    {
+      "port": "HAMBURG",
+      "name": "Hamburg",
+      "country": "Germany",
+      "locode": "DEHAM",
+      "lat": 53.5511,
+      "lon": 9.9937,
+      "region": "Northern Europe",
+      "teu": 8715000,
+      "category": "B",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Germany",
+      "owner_rep": "Klaus Schmidt",
+      "email": "hamburg@sdglines.com"
+    },
+    {
+      "port": "FELIXSTOWE",
+      "name": "Felixstowe",
+      "country": "United Kingdom",
+      "locode": "GBFXT",
+      "lat": 51.9638,
+      "lon": 1.3519,
+      "region": "Northern Europe",
+      "teu": 3700000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com UK",
+      "owner_rep": "Emily Smith",
+      "email": "felixstowe@sdglines.com"
+    },
+    {
+      "port": "LE HAVRE",
+      "name": "Le Havre",
+      "country": "France",
+      "locode": "FRLEH",
+      "lat": 49.4944,
+      "lon": 0.1077,
+      "region": "Atlantic",
+      "teu": 3019000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com France",
+      "owner_rep": "Pierre Dubois",
+      "email": "lehavre@sdglines.com"
+    },
+    {
+      "port": "JEDDAH",
+      "name": "Jeddah",
+      "country": "Saudi Arabia",
+      "locode": "SAJED",
+      "lat": 21.4858,
+      "lon": 39.1925,
+      "region": "Red Sea",
+      "teu": 4883000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "03:00",
+      "agent": "Sailportlogistics.com Saudi Arabia",
+      "owner_rep": "AImed Al-Mansour",
+      "email": "jeddad@sdglines.com"
+    },
+    {
+      "port": "ABU DHABI",
+      "name": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "locode": "AEAUH",
+      "lat": 24.45,
+      "lon": 54.3827,
+      "region": "Red Sea",
+      "teu": 7800000,
+      "category": "B",
+      "ets_status": "EUM",
+      "utc_winter": "04:00",
+      "agent": "Sailportlogistics.com United Arab Emirates",
+      "owner_rep": "Fatima Al-Mazroui",
+      "email": "abudhabi@sdglines.com"
+    },
+    {
+      "port": "MUMBAI",
+      "name": "Mumbai",
+      "country": "India",
+      "locode": "INBOM",
+      "lat": 18.9636,
+      "lon": 72.8258,
+      "region": "Southern Asia",
+      "teu": 10000000,
+      "category": "B",
+      "ets_status": "EUM",
+      "utc_winter": "05:30",
+      "agent": "Sailportlogistics.com India",
+      "owner_rep": "Rajesh Patel",
+      "email": "mumbai@sdglines.com"
+    },
+    {
+      "port": "SALALAH",
+      "name": "Salalah",
+      "country": "Oman",
+      "locode": "OMSSH",
+      "lat": 17.0151,
+      "lon": 54.0924,
+      "region": "Red Sea",
+      "teu": 4510000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "04:00",
+      "agent": "Sailportlogistics.com Oman",
+      "owner_rep": "Suleiman Al-Jabri",
+      "email": "SALALAH@sdglines.com"
+    },
+    {
+      "port": "BUSAN",
+      "name": "Busan",
+      "country": "South Korea",
+      "locode": "KRPUS",
+      "lat": 35.1796,
+      "lon": 129.0756,
+      "region": "Eastern Asia",
+      "teu": 21000000,
+      "category": "A",
+      "ets_status": "EUM",
+      "utc_winter": "09:00",
+      "agent": "Sailportlogistics.com South Korea",
+      "owner_rep": "Min-Jun Kim",
+      "email": "busan@sdglines.com"
+    },
+    {
+      "port": "AQABA",
+      "name": "Aqaba",
+      "country": "Jordan",
+      "locode": "JOAQJ",
+      "lat": 29.526,
+      "lon": 35.0075,
+      "region": "Red Sea",
+      "teu": 1200000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "03:00",
+      "agent": "Sailportlogistics.com Jordan",
+      "owner_rep": "Yasmin Al-Khalidi",
+      "email": "aqaba@sdglines.com"
+    },
+    {
+      "port": "PALERMO",
+      "name": "Palermo",
+      "country": "Italy",
+      "locode": "ITPMO",
+      "lat": 38.1112,
+      "lon": 13.3549,
+      "region": "West Med",
+      "teu": 120000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Italy",
+      "owner_rep": "Giovanni Russo",
+      "email": "palermo@sdglines.com"
+    },
+    {
+      "port": "VALENCIA",
+      "name": "Valencia",
+      "country": "Spain",
+      "locode": "ESVLC",
+      "lat": 39.4699,
+      "lon": -0.3753,
+      "region": "West Med",
+      "teu": 5604478,
+      "category": "B",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Valencia",
+      "owner_rep": "Borja Casado",
+      "email": "valencia@sdglines.com"
+    },
+    {
+      "port": "MARSEILLE",
+      "name": "Marseille",
+      "country": "France",
+      "locode": "FRMRS",
+      "lat": 43.2965,
+      "lon": 5.3698,
+      "region": "West Med",
+      "teu": 1500000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com France",
+      "owner_rep": "Jean-Luc Dupont",
+      "email": "marseille@sdglines.com"
+    },
+    {
+      "port": "CIVITAVECCHIA",
+      "name": "Civitavecchia",
+      "country": "Italy",
+      "locode": "ITCIV",
+      "lat": 42.0892,
+      "lon": 11.7915,
+      "region": "West Med",
+      "teu": 112000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Italy",
+      "owner_rep": "Giuliano Amato",
+      "email": "rome@sdglines.com"
+    },
+    {
+      "port": "RADES",
+      "name": "Rades",
+      "country": "Tunisia",
+      "locode": "TNRAD",
+      "lat": 36.7709,
+      "lon": 10.3285,
+      "region": "West Med",
+      "teu": 7900000,
+      "category": "B",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Tunis",
+      "owner_rep": "AImed Ben Ali",
+      "email": "rades@sdglines.com"
+    },
+    {
+      "port": "BEIRUT",
+      "name": "Beirut",
+      "country": "Lebanon",
+      "locode": "LBBEY",
+      "lat": 33.8959,
+      "lon": 35.4789,
+      "region": "East Med",
+      "teu": 1229100,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "02:00",
+      "agent": "Sailportlogistics.com Lebanon",
+      "owner_rep": "Nadine Khoury",
+      "email": "beirut@sdglines.com"
+    },
+    {
+      "port": "DAMIETTA",
+      "name": "Damietta",
+      "country": "Egypt",
+      "locode": "EGDAM",
+      "lat": 31.4198,
+      "lon": 31.8115,
+      "region": "East Med",
+      "teu": 3300000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Egypt",
+      "owner_rep": "MAImoud Abdel-Moneim",
+      "email": "damietta@sdglines.com"
+    },
+    {
+      "port": "TANGER MED",
+      "name": "Tanger Med",
+      "country": "Morocco",
+      "locode": "MATNG",
+      "lat": 35.88462,
+      "lon": -5.50072,
+      "region": "West Med",
+      "teu": 7174000,
+      "category": "B",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Morocco",
+      "owner_rep": "Fatima Benhima",
+      "email": "tangermed@sdglines.com"
+    },
+    {
+      "port": "LAS PALMAS",
+      "name": "Las Palmas",
+      "country": "Spain",
+      "locode": "ESLPA",
+      "lat": 28.1317,
+      "lon": -15.43,
+      "region": "Atlantic",
+      "teu": 1053000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Spain",
+      "owner_rep": "María García",
+      "email": "laspalmas@sdglines.com"
+    },
+    {
+      "port": "NOUAKCHOTT",
+      "name": "Nouakchott",
+      "country": "Mauritania",
+      "locode": "MRNKC",
+      "lat": 18.097,
+      "lon": -15.9915,
+      "region": "Middle Africa",
+      "teu": 84000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "00:00",
+      "agent": "Sailportlogistics.com Mauritania",
+      "owner_rep": "Mohamed Diop",
+      "email": "nouakchott@sdglines.com"
+    },
+    {
+      "port": "CASABLANCA",
+      "name": "Casablanca",
+      "country": "Morocco",
+      "locode": "MACAS",
+      "lat": 33.6136,
+      "lon": -7.6198,
+      "region": "West Med",
+      "teu": 350000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Morocco",
+      "owner_rep": "Khalid El Amrani",
+      "email": "casablanca@sdglines.com"
+    },
+    {
+      "port": "ALGIERS",
+      "name": "Algiers",
+      "country": "Algeria",
+      "locode": "DZALG",
+      "lat": 36.7528,
+      "lon": 3.0422,
+      "region": "West Med",
+      "teu": 1553000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com ALGIERSia",
+      "owner_rep": "Amina Saidi",
+      "email": "argel@sdglines.com"
+    },
+    {
+      "port": "GENOVA",
+      "name": "Genoa",
+      "country": "Italy",
+      "locode": "ITGOA",
+      "lat": 44.4072,
+      "lon": 8.9339,
+      "region": "West Med",
+      "teu": 2557000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Italy",
+      "owner_rep": "Giulia Bianchi",
+      "email": "genoa@sdglines.com"
+    },
+    {
+      "port": "IZMIR",
+      "name": "Izmir",
+      "country": "Türkiye",
+      "locode": "TRIZM",
+      "lat": 38.457,
+      "lon": 27.15267,
+      "region": "East Med",
+      "teu": 1967946,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "03:00",
+      "agent": "Sailportlogistics.com Turkey",
+      "owner_rep": "Arben Krasniqi",
+      "email": "izmir@sdglines.com"
+    },
+    {
+      "port": "PIRAEUS",
+      "name": "Piraeus",
+      "country": "Greece",
+      "locode": "GRPIR",
+      "lat": 37.9417,
+      "lon": 23.6533,
+      "region": "East Med",
+      "teu": 5311810,
+      "category": "B",
+      "ets_status": "EUM",
+      "utc_winter": "02:00",
+      "agent": "Sailportlogistics.com Greece",
+      "owner_rep": "Emre Yılmaz",
+      "email": "pireus@sdglines.com"
+    },
+    {
+      "port": "DURRES",
+      "name": "Durres",
+      "country": "Albania",
+      "locode": "ALDRZ",
+      "lat": 41.3167,
+      "lon": 19.45,
+      "region": "Adriatic",
+      "teu": 180000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Albania",
+      "owner_rep": "Arben Krasniqi",
+      "email": "durres@sdglines.com"
+    },
+    {
+      "port": "BAR",
+      "name": "Bar",
+      "country": "Montenegro",
+      "locode": "MEBAR",
+      "lat": 42.099444,
+      "lon": 19.074444,
+      "region": "Adriatic",
+      "teu": 750000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Montenegro",
+      "owner_rep": "Dušan Mandic",
+      "email": "bar@sdglines.com"
+    },
+    {
+      "port": "BARI",
+      "name": "Bari",
+      "country": "Italy",
+      "locode": "ITBRI",
+      "lat": 41.1171,
+      "lon": 16.8719,
+      "region": "West Med",
+      "teu": 82000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Italy",
+      "owner_rep": "Michele Decaro",
+      "email": "bari@sdglines.com"
+    },
+    {
+      "port": "VALLETTA",
+      "name": "Valletta",
+      "country": "Malta",
+      "locode": "MTVAL",
+      "lat": 35.898,
+      "lon": 14.5147,
+      "region": "West Med",
+      "teu": 200000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Malta",
+      "owner_rep": "Maria Attard",
+      "email": "VALLETTA@sdglines.com"
+    },
+    {
+      "port": "ORAN",
+      "name": "Oran",
+      "country": "Algeria",
+      "locode": "DZORN",
+      "lat": 35.7123,
+      "lon": -0.6397,
+      "region": "West Med",
+      "teu": 278342,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com ALGIERSia",
+      "owner_rep": "Amina Saidi",
+      "email": "argel@sdglines.com"
+    },
+    {
+      "port": "LISBON",
+      "name": "Lisbon",
+      "country": "Portugal",
+      "locode": "PTLIS",
+      "lat": 38.7028,
+      "lon": -9.196,
+      "region": "Atlantic",
+      "teu": 1200000,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "00:00",
+      "agent": "Sailportlogistics.com Portugal",
+      "owner_rep": "João Santos",
+      "email": "lisbon@sdglines.com"
+    },
+    {
+      "port": "MISURATA",
+      "name": "Misurata",
+      "country": "Libya",
+      "locode": "LYMRA",
+      "lat": 32.4003,
+      "lon": 15.1267,
+      "region": "West Med",
+      "teu": 213000,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Libia",
+      "owner_rep": "Mustafa al Trabelsi",
+      "email": "misurata@sdglines.com"
+    },
+    {
+      "port": "PORT SAID",
+      "name": "Port Said",
+      "country": "Egypt",
+      "locode": "EGPSD",
+      "lat": 31.2656,
+      "lon": 32.3019,
+      "region": "East Med",
+      "teu": 4764583,
+      "category": "C",
+      "ets_status": "EUM",
+      "utc_winter": "02:00",
+      "agent": "Sailportlogistics.com Egypt",
+      "owner_rep": "Mohamed Kamel",
+      "email": "portsaid@sdglines.com"
+    },
+    {
+      "port": "PALMA",
+      "name": "Palma",
+      "country": "Spain",
+      "locode": "ESPMI",
+      "lat": 39.5696,
+      "lon": 2.6502,
+      "region": "West Med",
+      "teu": 457449,
+      "category": "D",
+      "ets_status": "EUM",
+      "utc_winter": "01:00",
+      "agent": "Sailportlogistics.com Spain",
+      "owner_rep": "Joan Mariné Rodríguez",
+      "email": "palma@sdglines.com"
+    },
+    {
+      "port": "YANTIAN",
+      "name": "Yantian",
+      "country": "China",
+      "locode": "CNYTN",
+      "lat": 22.5728,
+      "lon": 114.2689,
+      "region": "Red Sea",
+      "teu": 16000000,
+      "category": "A",
+      "ets_status": "EUM",
+      "utc_winter": "08:00",
+      "agent": "Sailportlogistics.com China",
+      "owner_rep": "Li Wei",
+      "email": "yantian@sdglines.com"
+    }
+  ],
+  "Equipment": [
+    {
+      "id": 1,
+      "equipment": "20 feet Container (Dry Cargo)",
+      "group": "Container",
+      "freight_factor": 0.8,
+      "default_weight_kg": 22000,
+      "emission_factor": 85,
+      "lm": 6.1,
+      "reefer": false,
+      "baf_base_A": 43,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 2,
+      "equipment": "40 feet Container (Dry Cargo)",
+      "group": "Container",
+      "freight_factor": 1,
+      "default_weight_kg": 27000,
+      "emission_factor": 85,
+      "lm": 12.19,
+      "reefer": false,
+      "baf_base_A": 86,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 3,
+      "equipment": "20 feet Reefer",
+      "group": "Container",
+      "freight_factor": 1.25,
+      "default_weight_kg": 17000,
+      "emission_factor": 140,
+      "lm": 6.1,
+      "reefer": true,
+      "baf_base_A": 51,
+      "plugin_per_day": 25
+    },
+    {
+      "id": 4,
+      "equipment": "40 feet Reefer",
+      "group": "Container",
+      "freight_factor": 1.3,
+      "default_weight_kg": 25000,
+      "emission_factor": 140,
+      "lm": 12.19,
+      "reefer": true,
+      "baf_base_A": 77,
+      "plugin_per_day": 29
+    },
+    {
+      "id": 5,
+      "equipment": "45 feet Container (High CUBE)",
+      "group": "Container",
+      "freight_factor": 1.15,
+      "default_weight_kg": 29000,
+      "emission_factor": 85,
+      "lm": 13.72,
+      "reefer": false,
+      "baf_base_A": 43,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 6,
+      "equipment": "20 feet (OT) Open-Top",
+      "group": "Container",
+      "freight_factor": 1.07,
+      "default_weight_kg": 22000,
+      "emission_factor": 85,
+      "lm": 6.1,
+      "reefer": false,
+      "baf_base_A": 43,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 7,
+      "equipment": "Semi-Trailer",
+      "group": "RORO",
+      "freight_factor": 1.5,
+      "default_weight_kg": 24000,
+      "emission_factor": 68,
+      "lm": 13.6,
+      "reefer": false,
+      "baf_base_A": 43,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 8,
+      "equipment": "Semi-Trailer Frigo",
+      "group": "RORO",
+      "freight_factor": 1.6,
+      "default_weight_kg": 24000,
+      "emission_factor": 68,
+      "lm": 13.6,
+      "reefer": true,
+      "baf_base_A": 51,
+      "plugin_per_day": 29
+    },
+    {
+      "id": 9,
+      "equipment": "Flatrack 20 feet",
+      "group": "Flat Rack",
+      "freight_factor": 1.4,
+      "default_weight_kg": 22000,
+      "emission_factor": 765,
+      "lm": 6.1,
+      "reefer": false,
+      "baf_base_A": 43,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 10,
+      "equipment": "Flatrack 40 feet",
+      "group": "Flat Rack",
+      "freight_factor": 1.45,
+      "default_weight_kg": 26000,
+      "emission_factor": 425,
+      "lm": 12.19,
+      "reefer": false,
+      "baf_base_A": 86,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 11,
+      "equipment": "Flatrack 45 feet HC",
+      "group": "Flat Rack",
+      "freight_factor": 1.5,
+      "default_weight_kg": 29000,
+      "emission_factor": 513,
+      "lm": 13.72,
+      "reefer": false,
+      "baf_base_A": 43,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 12,
+      "equipment": "Roll Trailer 40 feet",
+      "group": "Roll Trailer",
+      "freight_factor": 1.44,
+      "default_weight_kg": 25000,
+      "emission_factor": 420,
+      "lm": 12.19,
+      "reefer": false,
+      "baf_base_A": 43,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 13,
+      "equipment": "Roll Trailer 45 feet",
+      "group": "Roll Trailer",
+      "freight_factor": 1.48,
+      "default_weight_kg": 28000,
+      "emission_factor": 607,
+      "lm": 6.1,
+      "reefer": false,
+      "baf_base_A": 52,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 14,
+      "equipment": "Roll Trailer 60 feet",
+      "group": "Roll Trailer",
+      "freight_factor": 1.51,
+      "default_weight_kg": 30000,
+      "emission_factor": 490,
+      "lm": 18.29,
+      "reefer": false,
+      "baf_base_A": 57,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 15,
+      "equipment": "Vehicles",
+      "group": "Vehicles",
+      "freight_factor": 0.8,
+      "default_weight_kg": 28000,
+      "emission_factor": 255,
+      "lm": 6.1,
+      "reefer": false,
+      "baf_base_A": 0,
+      "plugin_per_day": 0
+    },
+    {
+      "id": 16,
+      "equipment": "Project",
+      "group": "Project",
+      "freight_factor": 1.6,
+      "default_weight_kg": 30000,
+      "emission_factor": 227,
+      "lm": 18.29,
+      "reefer": false,
+      "baf_base_A": 57,
+      "plugin_per_day": 0
+    }
+  ],
+  "THC": [
+    {
+      "id": 1,
+      "equipment": "20 feet Container (Dry Cargo)",
+      "A": 240,
+      "B": 259,
+      "C": 279,
+      "D": 302
+    },
+    {
+      "id": 2,
+      "equipment": "40 feet Container (Dry Cargo)",
+      "A": 240,
+      "B": 259,
+      "C": 279,
+      "D": 302
+    },
+    {
+      "id": 3,
+      "equipment": "20 feet Reefer",
+      "A": 260,
+      "B": 280,
+      "C": 304,
+      "D": 330
+    },
+    {
+      "id": 4,
+      "equipment": "40 feet Reefer",
+      "A": 288,
+      "B": 311,
+      "C": 336,
+      "D": 363
+    },
+    {
+      "id": 5,
+      "equipment": "45 feet Container (High CUBE)",
+      "A": 288,
+      "B": 311,
+      "C": 336,
+      "D": 363
+    },
+    {
+      "id": 6,
+      "equipment": "20 feet (OT) Open-Top",
+      "A": 264,
+      "B": 285,
+      "C": 308,
+      "D": 334
+    },
+    {
+      "id": 7,
+      "equipment": "Semi-Trailer",
+      "A": 316,
+      "B": 341,
+      "C": 369,
+      "D": 400
+    },
+    {
+      "id": 8,
+      "equipment": "Semi-Trailer Frigo",
+      "A": 340,
+      "B": 367,
+      "C": 397,
+      "D": 429
+    },
+    {
+      "id": 9,
+      "equipment": "Flatrack 20 feet",
+      "A": 360,
+      "B": 388,
+      "C": 421,
+      "D": 456
+    },
+    {
+      "id": 10,
+      "equipment": "Flatrack 40 feet",
+      "A": 340,
+      "B": 367,
+      "C": 397,
+      "D": 429
+    },
+    {
+      "id": 11,
+      "equipment": "Flatrack 45 feet HC",
+      "A": 385,
+      "B": 415,
+      "C": 449,
+      "D": 486
+    },
+    {
+      "id": 12,
+      "equipment": "Roll Trailer 40 feet",
+      "A": 400,
+      "B": 432,
+      "C": 466,
+      "D": 504
+    },
+    {
+      "id": 13,
+      "equipment": "Roll Trailer 45 feet",
+      "A": 415,
+      "B": 448,
+      "C": 485,
+      "D": 525
+    },
+    {
+      "id": 14,
+      "equipment": "Roll Trailer 60 feet",
+      "A": 445,
+      "B": 481,
+      "C": 521,
+      "D": 564
+    },
+    {
+      "id": 15,
+      "equipment": "Vehicles",
+      "A": 215,
+      "B": 222,
+      "C": 240,
+      "D": 250
+    },
+    {
+      "id": 16,
+      "equipment": "Project",
+      "A": 357,
+      "B": 370,
+      "C": 385,
+      "D": 450
+    }
+  ],
+  "Surcharges": [
+    {
+      "code": "PORT_TAXES",
+      "name": "Port taxes",
+      "basis": "unit",
+      "applies_to": "both",
+      "A": 20,
+      "B": 35,
+      "C": 40,
+      "D": 45,
+      "in_total": true
+    },
+    {
+      "code": "VGM",
+      "name": "VGM (SOLAS weighing)",
+      "basis": "unit",
+      "applies_to": "export",
+      "A": 25,
+      "B": 30,
+      "C": 35,
+      "D": 40,
+      "in_total": true
+    },
+    {
+      "code": "DOCUMENTATION",
+      "name": "Documentation",
+      "basis": "booking",
+      "applies_to": "both",
+      "A": 54,
+      "B": 66,
+      "C": 72,
+      "D": 78,
+      "in_total": true
+    },
+    {
+      "code": "ISPS",
+      "name": "ISPS",
+      "basis": "unit",
+      "applies_to": "export",
+      "A": 15,
+      "B": 20,
+      "C": 25,
+      "D": 30,
+      "in_total": true
+    },
+    {
+      "code": "LOGISTIC_MANAGEMENT",
+      "name": "Logistic management",
+      "basis": "booking",
+      "applies_to": "both",
+      "A": 8,
+      "B": 10,
+      "C": 12,
+      "D": 14,
+      "in_total": true
+    },
+    {
+      "code": "SEAL",
+      "name": "Seal",
+      "basis": "unit",
+      "applies_to": "export",
+      "A": 10,
+      "B": 11,
+      "C": 12,
+      "D": 15,
+      "in_total": true
+    },
+    {
+      "code": "AMS",
+      "name": "AMS - Manifest",
+      "basis": "booking",
+      "applies_to": "export",
+      "A": 30,
+      "B": 35,
+      "C": 40,
+      "D": 45,
+      "in_total": false
+    },
+    {
+      "code": "IMO",
+      "name": "IMO dangerous goods",
+      "basis": "unit",
+      "applies_to": "both",
+      "A": 55,
+      "B": 60,
+      "C": 65,
+      "D": 70,
+      "in_total": true
+    },
+    {
+      "code": "CUSTOM_CLEARANCE",
+      "name": "Customs clearance",
+      "basis": "booking",
+      "applies_to": "both",
+      "A": 35,
+      "B": 40,
+      "C": 45,
+      "D": 50,
+      "in_total": false
+    },
+    {
+      "code": "CONTROL",
+      "name": "Control (inspection)",
+      "basis": "unit",
+      "applies_to": "export",
+      "A": 20,
+      "B": 25,
+      "C": 30,
+      "D": 35,
+      "in_total": true
+    }
+  ],
+  "FreightCurve": [
+    {
+      "nm": 163,
+      "base_feu_eur": 653.56
+    },
+    {
+      "nm": 193,
+      "base_feu_eur": 659.81
+    },
+    {
+      "nm": 270,
+      "base_feu_eur": 675.86
+    },
+    {
+      "nm": 279,
+      "base_feu_eur": 677.73
+    },
+    {
+      "nm": 352,
+      "base_feu_eur": 692.87
+    },
+    {
+      "nm": 516,
+      "base_feu_eur": 719.77
+    },
+    {
+      "nm": 539,
+      "base_feu_eur": 723.38
+    },
+    {
+      "nm": 626,
+      "base_feu_eur": 736.69
+    },
+    {
+      "nm": 645,
+      "base_feu_eur": 739.54
+    },
+    {
+      "nm": 652,
+      "base_feu_eur": 740.58
+    },
+    {
+      "nm": 702,
+      "base_feu_eur": 747.96
+    },
+    {
+      "nm": 990,
+      "base_feu_eur": 788.14
+    },
+    {
+      "nm": 1042,
+      "base_feu_eur": 795.03
+    },
+    {
+      "nm": 1257,
+      "base_feu_eur": 822.58
+    },
+    {
+      "nm": 1316,
+      "base_feu_eur": 829.89
+    },
+    {
+      "nm": 1333,
+      "base_feu_eur": 831.98
+    },
+    {
+      "nm": 1543,
+      "base_feu_eur": 857.16
+    },
+    {
+      "nm": 1545,
+      "base_feu_eur": 857.4
+    },
+    {
+      "nm": 1621,
+      "base_feu_eur": 866.24
+    },
+    {
+      "nm": 1668,
+      "base_feu_eur": 871.64
+    },
+    {
+      "nm": 1829,
+      "base_feu_eur": 889.79
+    },
+    {
+      "nm": 1842,
+      "base_feu_eur": 891.23
+    },
+    {
+      "nm": 1896,
+      "base_feu_eur": 897.18
+    },
+    {
+      "nm": 1897,
+      "base_feu_eur": 897.29
+    },
+    {
+      "nm": 1898,
+      "base_feu_eur": 897.4
+    },
+    {
+      "nm": 1905,
+      "base_feu_eur": 898.17
+    },
+    {
+      "nm": 2161,
+      "base_feu_eur": 925.61
+    },
+    {
+      "nm": 2228,
+      "base_feu_eur": 932.6
+    },
+    {
+      "nm": 2237,
+      "base_feu_eur": 933.53
+    },
+    {
+      "nm": 2274,
+      "base_feu_eur": 937.35
+    },
+    {
+      "nm": 2282,
+      "base_feu_eur": 938.18
+    },
+    {
+      "nm": 2403,
+      "base_feu_eur": 950.52
+    },
+    {
+      "nm": 2544,
+      "base_feu_eur": 964.61
+    },
+    {
+      "nm": 2701,
+      "base_feu_eur": 979.97
+    },
+    {
+      "nm": 2935,
+      "base_feu_eur": 1002.24
+    },
+    {
+      "nm": 3976,
+      "base_feu_eur": 1112.28
+    },
+    {
+      "nm": 4030,
+      "base_feu_eur": 1118.97
+    },
+    {
+      "nm": 5117,
+      "base_feu_eur": 1253.67
+    },
+    {
+      "nm": 5153,
+      "base_feu_eur": 1258.13
+    },
+    {
+      "nm": 5216,
+      "base_feu_eur": 1265.94
+    },
+    {
+      "nm": 5813,
+      "base_feu_eur": 1339.92
+    },
+    {
+      "nm": 7778,
+      "base_feu_eur": 1583.41
+    },
+    {
+      "nm": 8386,
+      "base_feu_eur": 1658.76
+    },
+    {
+      "nm": 8667,
+      "base_feu_eur": 1693.58
+    },
+    {
+      "nm": 8852,
+      "base_feu_eur": 1716.5
+    },
+    {
+      "nm": 9800,
+      "base_feu_eur": 1833.97
+    },
+    {
+      "nm": 10000,
+      "base_feu_eur": 1858.76
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SDG Lines · Trainer view</title>
+<meta name="description" content="Live view of the quotations a class is issuing, for Escola Europea – Intermodal Transport trainers.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%230687a1%22/%3E%3Cpath d=%22M4 19h24l-3.2 6.5H7.2z%22 fill=%22%23fff%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/trainer.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="index.html">
+      <span class="mark mark-deep" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M4 19h24l-3.2 6.5H7.2z" fill="#fff"/><rect x="9" y="12" width="5" height="6" rx=".6" fill="#fff"/><rect x="15" y="9" width="5" height="9" rx=".6" fill="#fff" opacity=".85"/><rect x="21" y="13" width="4" height="5" rx=".6" fill="#fff" opacity=".7"/></svg>
+      </span>
+      <span>
+        <strong class="brand-name">SDG <span>LINES</span></strong>
+        <span class="brand-sub">Trainer view · what the class is issuing</span>
+      </span>
+    </a>
+    <div class="head-tools">
+      <span class="pill" id="status">Not connected</span>
+      <button class="btn-ghost" id="refresh" type="button">Refresh</button>
+    </div>
+  </header>
+
+  <!-- Sign in ------------------------------------------------------------ -->
+  <section class="card" id="gate">
+    <h2>Trainer key</h2>
+    <p class="muted">
+      The key is set once in the Apps Script project, under
+      <em>Project Settings › Script properties › TRAINER_KEY</em>. It is kept in
+      this browser only, so you enter it once per device.
+    </p>
+    <form id="gate-form" class="gate-row">
+      <label class="sr-only" for="key">Trainer key</label>
+      <input id="key" type="password" autocomplete="current-password" placeholder="Trainer key" required>
+      <button class="btn" type="submit">Open</button>
+    </form>
+    <p class="err" id="gate-err" hidden></p>
+  </section>
+
+  <!-- The class --------------------------------------------------------- -->
+  <section id="board" hidden>
+
+    <div class="board-tools">
+      <label class="sr-only" for="q">Filter</label>
+      <input id="q" type="search" placeholder="Filter by name, company, port or number">
+      <label class="check"><input type="checkbox" id="auto" checked> Refresh every 30 seconds</label>
+      <span class="muted" id="count"></span>
+      <button class="btn-ghost" id="forget" type="button">Forget the key</button>
+    </div>
+
+    <!-- The teaching moment: same shipment, different answers ----------- -->
+    <div class="card" id="spread-card" hidden>
+      <h2>Same shipment, different answers</h2>
+      <p class="muted">
+        Shipments that more than one learner quoted. A gap here is worth asking
+        about out loud: the inputs were the same, so something in the reasoning
+        was not.
+      </p>
+      <div id="spread"></div>
+    </div>
+
+    <div class="card">
+      <h2>Quotations issued</h2>
+      <div class="table-scroll">
+        <table class="grid" id="list">
+          <thead>
+            <tr>
+              <th>Issued</th><th>Number</th><th>Learner</th><th>Shipment</th>
+              <th class="num">Total</th><th>Document</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="muted empty" id="empty" hidden>
+        Nothing issued yet. The list fills as the class presses <em>Issue quotation</em>.
+      </p>
+    </div>
+
+  </section>
+
+  <footer class="foot">
+    SDG Lines is a simulated shipping company used by Escola Europea – Intermodal
+    Transport for education. Quotations carry no contractual value.
+  </footer>
+
+</div>
+<script src="js/config.js"></script>
+<script src="js/trainer.js"></script>
+</body>
+</html>

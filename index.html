@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SDG Lines Quotation Desk</title>
+<meta name="description" content="Container, RORO and arrival charges quotations for SDG Lines, the simulated shipping line of Escola Europea – Intermodal Transport.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%2303b8d9%22/%3E%3Cpath d=%22M4 19h24l-3.2 6.5H7.2z%22 fill=%22%23fff%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="teach">
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://www.sdglines.com/" target="_blank" rel="noopener">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M4 19h24l-3.2 6.5H7.2z" fill="#fff"/><rect x="9" y="12" width="5" height="6" rx=".6" fill="#fff"/><rect x="15" y="9" width="5" height="9" rx=".6" fill="#fff" opacity=".85"/><rect x="21" y="13" width="4" height="5" rx=".6" fill="#fff" opacity=".7"/></svg>
+      </span>
+      <span>
+        <h1>SDG <span>LINES</span></h1>
+        <p>Quotation Desk · a company of the Group Escola Europea Intermodal Transport</p>
+      </span>
+    </a>
+    <div class="topctl">
+      <span class="status" id="data-status">Loading data…</span>
+      <div class="tabs" role="group" aria-label="Quotation type">
+        <button type="button" id="mode-freight" aria-pressed="true">Freight</button>
+        <button type="button" id="mode-arrival" aria-pressed="false">Arrival charges</button>
+      </div>
+      <label class="learn" for="teach"><input id="teach" type="checkbox" checked> Training mode</label>
+    </div>
+  </header>
+
+  <div class="grid">
+    <form class="desk" id="form" autocomplete="off" novalidate>
+      <fieldset>
+        <h2>Customer</h2>
+        <div class="row">
+          <label for="name">Contact name<input id="name" required></label>
+          <label for="company">Company<input id="company" required></label>
+        </div>
+        <label for="email">Email<input id="email" type="email" placeholder="name@company.com"></label>
+      </fieldset>
+
+      <fieldset>
+        <h2 id="route-h">Route</h2>
+        <div class="row">
+          <label for="origin" id="origin-l">Port of loading<select id="origin"></select></label>
+          <label for="dest"><span id="dest-t">Port of discharge</span><select id="dest"></select></label>
+        </div>
+        <button type="button" class="swap" id="swap">⇄ Reverse route</button>
+        <label for="etd" id="etd-l">Ready to ship from<input id="etd" type="date"></label>
+      </fieldset>
+
+      <fieldset id="sail-box">
+        <h2>Sailings</h2>
+        <div class="sailings" id="sailings" role="radiogroup" aria-label="Available sailings"></div>
+      </fieldset>
+
+      <fieldset>
+        <h2>Cargo</h2>
+        <div class="row">
+          <label for="unit">Equipment<select id="unit"></select></label>
+          <label for="qty">Units<input id="qty" type="number" min="1" max="999" value="1"></label>
+        </div>
+        <div class="row">
+          <label for="weight" id="weight-l">Gross weight per unit (kg)<input id="weight" type="number" min="0" step="100"></label>
+          <label for="imo">Dangerous goods<select id="imo">
+            <option value="">Not dangerous</option><option value="1">Class 1 · Explosives</option><option value="2">Class 2 · Gases</option>
+            <option value="3">Class 3 · Flammable liquids</option><option value="4">Class 4 · Flammable solids</option><option value="5">Class 5 · Oxidizers, peroxides</option>
+            <option value="6">Class 6 · Toxic, infectious</option><option value="7">Class 7 · Radioactive</option><option value="8">Class 8 · Corrosives</option><option value="9">Class 9 · Miscellaneous</option>
+          </select></label>
+        </div>
+        <div class="row" id="opts-row">
+          <label class="check" for="vgm"><input id="vgm" type="checkbox"> VGM by carrier</label>
+          <label class="check" for="ams"><input id="ams" type="checkbox"> AMS / manifest</label>
+        </div>
+      </fieldset>
+
+      <p class="flag" id="flag" hidden></p>
+
+      <div class="actions">
+        <button type="submit" class="btn primary" id="issue">Issue quotation</button>
+        <button type="button" class="btn ghost" id="copy">Copy summary</button>
+      </div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <!-- Appears only once the server has filed a PDF for the issued quotation. -->
+      <p class="pdf-link" id="pdf-link" hidden><a href="#" target="_blank" rel="noopener">Open the PDF</a></p>
+    </form>
+
+    <article class="doc" aria-label="Quotation document">
+      <aside class="side">
+        <div><div class="k">Quotation number</div><div class="v" id="d-qno"></div></div>
+        <div><div class="k">Service</div><div class="v" id="d-service"></div></div>
+        <div><div class="k">Valid from / to</div><div class="v" id="d-valid"></div></div>
+        <div class="leg" id="d-from"></div>
+        <div class="leg" id="d-to"></div>
+        <div id="d-tt"></div>
+        <div class="co2" id="d-co2"></div>
+        <div><div class="k">Contact</div><div class="v">+34 932 98 60 70<br>info@escolaeuropea.eu</div></div>
+      </aside>
+      <div class="main">
+        <div class="dochead">
+          <div>
+            <h3>QUOTATION DOCUMENT</h3>
+            <p>SDG Lines · Terminal Drassanes, Placeta de l’Areté 1, 08039 Barcelona, Spain</p>
+          </div>
+          <span class="qno draft" id="d-qno2"></span>
+        </div>
+        <p class="dear" id="d-dear"></p>
+        <div class="block"><h4>Operation summary</h4><div class="summary" id="d-summary"></div></div>
+        <div class="block" id="b-freight"><h4>Freight charges</h4><div class="tbl"><table id="t-freight"></table></div></div>
+        <div class="block"><h4 id="h-sur">Surcharges</h4><div class="tbl"><table id="t-sur"></table></div></div>
+        <div class="total"><span id="d-total-l">Total amount quotation</span><b id="d-total"></b></div>
+        <p class="disclaimer">This offer is part of a training programme based on simulated companies and operations. It has no commercial validity and does not imply any commitment on the part of the participating companies. Escola Europea declines any responsibility for any misuse of the information provided.</p>
+        <div class="foot"><span id="d-qno3"></span><a href="https://www.sdglines.com/" target="_blank" rel="noopener">WWW.SDGLINES.COM</a></div>
+      </div>
+    </article>
+  </div>
+
+  <section class="train" aria-label="Training layer">
+    <div class="card">
+      <span class="eyebrow">How this quote was built</span>
+      <h2>Step-by-step calculation</h2>
+      <ol class="calc" id="calc"></ol>
+      <span class="eyebrow">Check your understanding</span>
+      <div class="qs" id="qs"></div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Glossary</span>
+      <h2>What each charge means</h2>
+      <div class="gloss" id="gloss"></div>
+      <span class="eyebrow">Sources</span>
+      <ol class="srclist" id="srcs"></ol>
+    </div>
+  </section>
+
+  <footer class="site">
+    <span>SDG Lines is a simulated shipping line used for training by Escola Europea – Intermodal Transport. It offers no real services.</span>
+    <span>Powered by Port Virtual Lab</span>
+  </footer>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/schedule.js"></script>
+<script src="js/api.js"></script>
+<script src="js/training.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
