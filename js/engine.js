@@ -115,7 +115,11 @@
 
     const emUnit = rt.nm * Number(eq.emission_factor) / 1000;           // kg CO2e per unit
     const emissions = legacy ? emUnit : emUnit * q;
-    const scope = etsScope(po, pd);
+    /* Legacy reproduces the old Google Forms system, which charged the
+       allowance in full on every voyage regardless of where the ports were.
+       That is what the 405 recorded quotations contain, so the replay has to
+       keep doing it. Only a quotation issued today applies the real scope. */
+    const scope = legacy ? 1 : etsScope(po, pd);
     const e = ets(ix, emUnit, q, scope);
     /* Say why when it is not the full charge: a learner comparing two routes
        should be able to see that the difference is the scheme, not the price. */

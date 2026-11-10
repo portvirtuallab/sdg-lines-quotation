@@ -223,4 +223,75 @@ console.log('  OK - the difference is a uniform re-rating, not drift.');
 
 let green = checkInTotal();
 if (!checkNovemberTariff()) green = false;
+if (!checkEtsScope()) green = false;
 if (!green) process.exit(1);
+
+/* The EU emissions scheme covers all of a voyage between two EU ports, half of
+   one with a single EU end, and none of one with neither. That rule lives in
+   two places that have to agree: the engine, and the ets_status column of the
+   Ports tab.
+
+   The column is the part that rots. Twenty-one ports were once marked EUM with
+   countries from Morocco to South Korea, and nothing complained, because the
+   engine was not reading the column at all. Both halves are checked here so
+   that neither can quietly drift again. */
+function checkEtsScope() {
+  const E = require(path.join(__dirname, '..', 'js', 'engine.js'));
+  const tariffs = require(path.join(__dirname, '..', 'data', 'tariffs.json'));
+  const db = Object.assign(
+    {},
+    require(path.join(__dirname, '..', 'data', 'network.json')),
+    tariffs,
+  );
+  const ix = E.index(db);
+  const EQ = '40 feet Container (Dry Cargo)';
+  const etsOf = (from, to, mode) => {
+    const q = E.quoteFreight(ix, { from, to, equipment: EQ, units: 1, mode });
+    const line = (q.lines || []).find((l) => l.code === 'ETS');
+    return line ? line.amount : 0;
+  };
+
+  console.log('\nEU emissions scheme, scope by port');
+  const problems = [];
+
+  /* Half of the rule is the data. A port's status has to follow from its
+     country, because that is the only thing the scheme actually cares about. */
+  const EU_EEA = new Set([
+    'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark',
+    'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Iceland',
+    'Ireland', 'Italy', 'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg',
+    'Malta', 'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania',
+    'Slovakia', 'Slovenia', 'Spain', 'Sweden',
+  ]);
+  for (const port of tariffs.Ports) {
+    const expected = EU_EEA.has(port.country) ? 'EUM' : 'NONEU';
+    if (String(port.ets_status) !== expected) {
+      problems.push(`  ${port.port} (${port.country}) is ${port.ets_status}, expected ${expected}`);
+    }
+  }
+
+  /* The other half is the engine. A full charge, a half charge and no charge
+     at all, each on a route that can only be one of them. */
+  const bothIn = etsOf('BARCELONA', 'VALENCIA');
+  const oneIn = etsOf('BARCELONA', 'TANGER MED');
+  const neither = etsOf('TANGER MED', 'ALGIERS');
+  if (!(bothIn > 0)) problems.push('  Barcelona to Valencia pays nothing; both ends are in the EU');
+  if (!(neither === 0)) problems.push(`  Tanger Med to Algiers pays ${neither}; neither end is in the EU`);
+  if (!(oneIn > 0 && oneIn < bothIn * 2)) {
+    problems.push(`  Barcelona to Tanger Med pays ${oneIn}, which is not a half share`);
+  }
+
+  /* And legacy still charges in full, or the 405 recorded quotations stop
+     reproducing and the replay suite is measuring today's rules, not theirs. */
+  if (etsOf('TANGER MED', 'ALGIERS', 'legacy') === 0) {
+    problems.push('  legacy mode has stopped charging the allowance in full');
+  }
+
+  if (problems.length) {
+    console.log(`  ${problems.length} problem(s):`);
+    problems.forEach((line) => console.log(line));
+    return false;
+  }
+  console.log('  OK - the column follows the country, and the engine follows the column.');
+  return true;
+}

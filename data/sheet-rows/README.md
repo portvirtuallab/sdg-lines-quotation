@@ -50,3 +50,36 @@ No American port connects to a Mediterranean one. There is no transatlantic
 service, so Barcelona to New York has no route and the Desk says so rather than
 inventing a distance. That is a decision still to be taken, not a gap in this
 file.
+
+---
+
+# ets_status.txt — the emissions column, corrected
+
+Forty-two values, one per line, in the order the `Ports` tab already holds them.
+Paste into **J2**. The order was checked against the live sheet before this file
+was written, because a column pasted one row out would look perfectly tidy and
+misprice every route below the error.
+
+## What was wrong
+
+Twenty-one ports were marked `EUM` with countries the EU scheme does not cover:
+Felixstowe, Jeddah, Abu Dhabi, Mumbai, Salalah, Busan, Aqaba, Rades, Beirut,
+Damietta, Tanger Med, Nouakchott, Casablanca, Algiers, Izmir, Durres, Bar, Oran,
+Misurata, Port Said and Yantian.
+
+Nothing caught it because until this week the engine never read the column. Both
+halves of the rule are now checked by `tools/anchors.test.js`: the column has to
+follow the country, and the engine has to follow the column.
+
+## This is a tariff change, not only a repair
+
+Correcting it makes 629 of the 643 recorded quotations cheaper, by 13,813.66
+euro in total. Those quotations are not wrong - the old system charged the
+allowance in full everywhere, and that is what the customers were quoted.
+
+So the engine now applies the scope in `corrected` mode only. Legacy still
+charges in full and still reproduces all 643 to the cent, the same way it still
+bills Control after Control was withdrawn.
+
+The practical effect: a quotation issued today prices the scheme properly, and a
+historic one still replays as it was issued.
