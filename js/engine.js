@@ -51,10 +51,24 @@
     return { nm: d ? Number(d.nm) : null, road_km: d && d.road_km ? Number(d.road_km) : null, via: r ? r.via : "", service: r ? r.first_service : "" };
   }
 
-  function ets(ix, emissionsKg, units) {
+  /* How much of a voyage the EU emissions scheme covers. Its own rule: all of
+     it when both ends are in the EU, half when one end is outside, none when
+     neither is. The Ports tab says which a port is, in ets_status.
+
+     The engine used to ignore that column and charge in full on every voyage.
+     With 37 Mediterranean ports all marked EUM that happened to be right, so
+     nothing showed it. The American network makes it visible: Los Angeles to
+     Vancouver was carrying 34 euro of an allowance that does not apply to it. */
+  const inEu = (p) => /^EU/i.test(String((p && p.ets_status) || ""));
+  const etsScope = (po, pd) => (inEu(po) && inEu(pd) ? 1 : inEu(po) || inEu(pd) ? 0.5 : 0);
+
+  function ets(ix, emissionsKg, units, scope) {
     const S = ix.settings;
-    let v = emissionsKg / 1000 * Number(S.eua_price_eur_t) * units;
-    const fee = v < Number(S.ets_fee_threshold_eur) ? Number(S.ets_admin_fee_eur) : 0;
+    const share = scope === undefined ? 1 : scope;
+    let v = emissionsKg / 1000 * Number(S.eua_price_eur_t) * units * share;
+    /* No scheme, no administration fee. Charging the fee on a voyage that owes
+       nothing would be the same mistake in smaller print. */
+    const fee = share > 0 && v < Number(S.ets_fee_threshold_eur) ? Number(S.ets_admin_fee_eur) : 0;
     return { cost: r2(v), fee, total: r2(v + fee) };
   }
 
@@ -101,8 +115,16 @@
 
     const emUnit = rt.nm * Number(eq.emission_factor) / 1000;           // kg CO2e per unit
     const emissions = legacy ? emUnit : emUnit * q;
-    const e = ets(ix, emUnit, q);
-    add("ETS", "ETS", e.total, 1, "surcharge", e.fee ? `includes €${e.fee} fee` : "");
+    const scope = etsScope(po, pd);
+    const e = ets(ix, emUnit, q, scope);
+    /* Say why when it is not the full charge: a learner comparing two routes
+       should be able to see that the difference is the scheme, not the price. */
+    const etsNote = scope === 0
+      ? "outside the EU scheme"
+      : scope < 1
+        ? "50% - one end outside the EU"
+        : e.fee ? `includes €${e.fee} fee` : "";
+    if (scope > 0 || e.total > 0) add("ETS", "ETS", e.total, 1, "surcharge", etsNote);
     add("CUSTOM_CLEARANCE", "Customs clearance", sur(ix, "CUSTOM_CLEARANCE", cat), 1, "surcharge",
       "not a carrier service; shown so the operation is complete");
     /* Control was withdrawn from the tariff. Legacy still bills it: the 405

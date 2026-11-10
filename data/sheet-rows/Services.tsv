@@ -1,0 +1,4 @@
+service	description	speed_kn	rotation	round_trip_nm
+AM-ATL	Atlantic Americas. Connects the Caribbean with the North American Atlantic coast, carrying general cargo, coffee and agricultural products, manufactured goods and refrigerated cargo.	18	CARTAGENA – NEW YORK – HALIFAX – CARTAGENA	5000
+AM-PAC	Pacific Americas. Connects the United States and Canada on the Pacific coast, carrying containerised general cargo, machinery and industrial components, forest products and refrigerated cargo.	18	LOS ANGELES – VANCOUVER – LOS ANGELES	2300
+AM-INT	Intercoastal Americas. Links the Atlantic and Pacific coasts through the Panama Canal, for long-distance shipments and transshipment between the two American services.	18	NEW YORK – CARTAGENA – PANAMA – LOS ANGELES – VANCOUVER – LOS ANGELES – PANAMA – CARTAGENA – NEW YORK	12708

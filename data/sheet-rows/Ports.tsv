@@ -1,0 +1,6 @@
+port	name	country	locode	lat	lon	region	teu	category	ets_status	utc_winter	agent	owner_rep	email
+CARTAGENA	Cartagena de Indias	Colombia	COCTG	10.3997	-75.5144	Caribbean	2900000	C	NONEU	-05:00	Sailportlogistics.com Cartagena	Pending appointment	cartagena@sdglines.com
+NEW YORK	New York / New Jersey	United States	USNYC	40.684	-74.15	North America East	8900000	B	NONEU	-05:00	Sailportlogistics.com New York	Pending appointment	newyork@sdglines.com
+HALIFAX	Halifax	Canada	CAHAL	44.6488	-63.5752	North America East	550000	D	NONEU	-04:00	Sailportlogistics.com Halifax	Pending appointment	halifax@sdglines.com
+VANCOUVER	Vancouver	Canada	CAVAN	49.2888	-123.1111	North America West	3300000	C	NONEU	-08:00	Sailportlogistics.com Vancouver	Pending appointment	vancouver@sdglines.com
+LOS ANGELES	Los Angeles	United States	USLAX	33.7395	-118.261	North America West	8600000	B	NONEU	-08:00	Sailportlogistics.com Los Angeles	Pending appointment	losangeles@sdglines.com
