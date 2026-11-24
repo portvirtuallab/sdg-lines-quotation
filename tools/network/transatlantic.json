@@ -1,0 +1,132 @@
+{
+  "Services": [
+    {
+      "service": "TATL",
+      "description": "Western Mediterranean to the North American Atlantic coast",
+      "speed_kn": 18,
+      "rotation": "BARCELONA - VALENCIA - TANGER MED - NEW YORK - HALIFAX - TANGER MED - BARCELONA",
+      "round_trip_nm": 7693
+    }
+  ],
+  "ServiceLegs": [
+    {
+      "service": "TATL",
+      "seq": 1,
+      "from": "BARCELONA",
+      "to": "VALENCIA",
+      "nm": 203,
+      "transit": "11:17",
+      "time_in_port": "12:00",
+      "speed_kn": 18
+    },
+    {
+      "service": "TATL",
+      "seq": 2,
+      "from": "VALENCIA",
+      "to": "TANGER MED",
+      "nm": 357,
+      "transit": "19:50",
+      "time_in_port": "12:00",
+      "speed_kn": 18
+    },
+    {
+      "service": "TATL",
+      "seq": 3,
+      "from": "TANGER MED",
+      "to": "NEW YORK",
+      "nm": 3260,
+      "transit": "181:07",
+      "time_in_port": "12:00",
+      "speed_kn": 18
+    },
+    {
+      "service": "TATL",
+      "seq": 4,
+      "from": "NEW YORK",
+      "to": "HALIFAX",
+      "nm": 600,
+      "transit": "33:20",
+      "time_in_port": "12:00",
+      "speed_kn": 18
+    },
+    {
+      "service": "TATL",
+      "seq": 5,
+      "from": "HALIFAX",
+      "to": "TANGER MED",
+      "nm": 2734,
+      "transit": "151:53",
+      "time_in_port": "12:00",
+      "speed_kn": 18
+    },
+    {
+      "service": "TATL",
+      "seq": 6,
+      "from": "TANGER MED",
+      "to": "BARCELONA",
+      "nm": 539,
+      "transit": "29:57",
+      "time_in_port": "12:00",
+      "speed_kn": 18
+    }
+  ],
+  "Vessels": [
+    {
+      "vessel": "TATL 01 (name pending)",
+      "speed_kn": 18,
+      "time_in_port": "12:00",
+      "service": "TATL"
+    },
+    {
+      "vessel": "TATL 02 (name pending)",
+      "speed_kn": 18,
+      "time_in_port": "12:00",
+      "service": "TATL"
+    },
+    {
+      "vessel": "TATL 03 (name pending)",
+      "speed_kn": 18,
+      "time_in_port": "12:00",
+      "service": "TATL"
+    }
+  ],
+  "PortTerminals": [
+    {
+      "port": "BARCELONA",
+      "service": "TATL",
+      "terminal": "Barcelona Container Terminal (BCT)",
+      "time_in_port": "12:00",
+      "shipping_agent": "Sailportlogistics.com Barcelona"
+    },
+    {
+      "port": "VALENCIA",
+      "service": "TATL",
+      "terminal": "MLC MOS Terminals Valencia",
+      "time_in_port": "12:00",
+      "shipping_agent": "Sailportlogistics.com Valencia"
+    },
+    {
+      "port": "TANGER MED",
+      "service": "TATL",
+      "terminal": "Tangier Med Ferry Terminal",
+      "time_in_port": "12:00",
+      "shipping_agent": "Sailportlogistics.com Morocco"
+    },
+    {
+      "port": "NEW YORK",
+      "service": "TATL",
+      "terminal": "Port Newark – Elizabeth Marine Terminal",
+      "time_in_port": "12:00",
+      "shipping_agent": "Sailportlogistics.com New York"
+    },
+    {
+      "port": "HALIFAX",
+      "service": "TATL",
+      "terminal": "South End Container Terminal",
+      "time_in_port": "12:00",
+      "shipping_agent": "Sailportlogistics.com Halifax"
+    }
+  ],
+  "Distances": [],
+  "Routes": []
+}
