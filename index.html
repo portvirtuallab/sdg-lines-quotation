@@ -33,6 +33,25 @@
     </div>
   </header>
 
+  <!-- The course access code. Shown while the Desk is in sample mode and put
+       away once a code has been accepted, so a class that is already working
+       is not asked again on every reload. -->
+  <div class="access" id="access" hidden>
+    <div class="access-text">
+      <strong id="access-title">This is a sample</strong>
+      <p id="access-note">
+        You are seeing the route, the distance and what the ocean freight starts at.
+        Surcharges, terminal handling and emissions are not included, so there is no
+        total. Enter your course access code to quote in full.
+      </p>
+    </div>
+    <form class="access-form" id="access-form" autocomplete="off">
+      <label class="sr-only" for="access-code">Course access code</label>
+      <input id="access-code" name="access-code" inputmode="numeric" placeholder="Course code" size="12" />
+      <button type="submit" id="access-go">Unlock</button>
+    </form>
+  </div>
+
   <div class="grid">
     <form class="desk" id="form" autocomplete="off" novalidate>
       <fieldset>

@@ -8,9 +8,11 @@
    Updated 9 November 2026 for the deployment that carries Pdf.gs and Mail.gs.
    Leave API_URL empty to run with the files in data/ only (no quotation numbers are issued).
    - network.json: schedule, distances, routes, services, vessels (lives in this repository)
-   - tariffs.json: offline copy of the tariffs; the live tariffs come from the Google Sheet */
+   - tariffs-sample.json: the offline fallback, and what a visitor without a
+     course code is given: ports and the freight curve, no surcharges and so no
+     total. The full tariffs come from the Google Sheet, and only with a code. */
 window.SDG_CONFIG = {
   API_URL: "https://script.google.com/macros/s/AKfycbxiYVcF2Utj0a1mk8YxU3ISUkajbZzDa_fEvS4hhXQbeB_7vYTu9Oj1IWRHZJmOJReT/exec",
   NETWORK_URL: "data/network.json",
-  TARIFFS_URL: "data/tariffs.json"
+  TARIFFS_URL: "data/tariffs-sample.json"
 };

@@ -20,7 +20,17 @@ const CACHE_KEY = 'sdg_tariffs_v3';
 function doGet(e) {
   const action = (e && e.parameter.action) || 'data';
   try {
-    if (action === 'data') return json_(readAll_());
+    if (action === 'data') {
+      /* A course code buys the full tariff. Without one the Desk is given a
+         sample it cannot total, because the surcharges are never sent. See
+         Access.gs for what this gate is and, just as importantly, what it is
+         not. */
+      const access = checkAccess_(e && e.parameter.code);
+      const full = readAll_();
+      const body = access.granted ? full : sampleOf_(full);
+      body.access = { granted: access.granted, reason: access.reason };
+      return json_(body);
+    }
     if (action === 'quotes') {
       if (!isTrainer_(e.parameter.key)) return json_({ error: 'Not authorised' });
       return json_(latestQuotes_(Number(e.parameter.limit) || 50));
@@ -34,7 +44,26 @@ function doGet(e) {
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents || '{}');
-    if (body.action === 'save') return json_(saveQuote_(body.quote || {}));
+    if (body.action === 'save') {
+      /* Issuing a quotation spends a number, writes a row, files a PDF and
+         sends an email. All four are course activity, so all four need a
+         course code - and checking it here rather than in the page is what
+         makes the check mean anything. */
+      const access = checkAccess_(body.code);
+      if (!access.granted) {
+        return json_({
+          error:
+            'A course access code is needed to issue a quotation. ' +
+            'Ask your trainer for the code for this course.',
+          access: { granted: false, reason: access.reason },
+        });
+      }
+      const quote = body.quote || {};
+      /* The code goes on the row, so a quotation can be traced to the course
+         that issued it rather than to whatever name was typed in the form. */
+      quote.access_code = access.code;
+      return json_(saveQuote_(quote));
+    }
     return json_({ error: 'Unknown action' });
   } catch (err) {
     return json_({ error: String(err) });
@@ -146,6 +175,8 @@ function onOpen() {
   SpreadsheetApp.getUi().createMenu('SDG Lines')
     .addItem('Create / refresh "Log (last 2 months)" tab', 'setupLog')
     .addItem('Clear API cache (after editing tariffs)', 'clearCache')
+    .addItem('Clear access-code cache (after activating a code)', 'clearAccessCache')
+    .addItem('Check the access-code list', 'checkAccessList')
     .addItem('Preview the quotation PDF', 'previewQuotationPdf')
     .addItem('Send myself a sample email', 'previewQuotationEmail')
     .addToUi();

@@ -174,3 +174,64 @@ footer.site{font-size:.76rem;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:
   font-size: 10px; font-weight: 700; letter-spacing: .3px; color: var(--ink-2);
   text-transform: none; vertical-align: 1px;
 }
+
+/* ---------- course access ---------- */
+/* The sample banner. It sits above the desk rather than inside it, because it
+   is about the whole page and not about one field. */
+.access {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--line, #dce4ec);
+  border-left: 4px solid var(--primary, #03b8d9);
+  border-radius: 10px;
+  background: var(--wash, #f2fafd);
+}
+.access-text { min-width: 16rem; flex: 1 1 24rem; }
+.access-text strong { display: block; font-size: 0.95rem; }
+.access-text p { margin: 0.25rem 0 0; font-size: 0.85rem; line-height: 1.45; color: var(--muted, #6b7489); }
+.access-form { display: flex; gap: 0.5rem; align-items: center; }
+.access-form input {
+  min-height: 2.5rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--line, #dce4ec);
+  border-radius: 8px;
+  font: inherit;
+}
+.access-form button {
+  min-height: 2.5rem;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--deep, #242e59);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.access-form button:hover { background: var(--primary, #03b8d9); }
+.access.bad { border-left-color: #c0392b; }
+.access.ok { border-left-color: var(--eco, #40a636); }
+
+/* A sample total is not a total, so it never looks like one. */
+.sample-total { color: var(--muted, #6b7489); font-weight: 600; }
+.sample-note {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted, #6b7489);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

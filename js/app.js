@@ -9,6 +9,9 @@
   const dshort = d => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
 
   let ix, sched, mode = "freight", sailOpts = [], issued = null, last = null;
+  /* True while the Desk is working from the sample tariff set, which is what
+     it gets until a course access code is accepted. */
+  let sample = false;
 
   /* ---------- setup ---------- */
   function fillSelects() {
@@ -68,8 +71,64 @@
   }
   const cell = (k, v) => `<div><span>${k}</span><strong>${esc(v)}</strong></div>`;
 
+  /* ---------- sample mode ---------- */
+  /* Without a course code the server sends ports and the freight curve and no
+     surcharges at all, so there is nothing to total. Rather than let the
+     engine fail on the missing tables, the Desk shows what it does have: the
+     route, the distance, the service and what ocean freight starts at. */
+  function baseFeu(nm) {
+    /* ix.curve is the published curve the engine itself interpolates on,
+       already sorted, so the sample quotes the same base rate a full
+       quotation would rather than a second opinion of it. */
+    const curve = ix.curve || [];
+    if (!curve.length) return null;
+    if (nm <= curve[0][0]) return curve[0][1];
+    for (let i = 1; i < curve.length; i++) {
+      if (nm <= curve[i][0]) {
+        const [x0, y0] = curve[i - 1], [x1, y1] = curve[i];
+        return y0 + ((y1 - y0) * (nm - x0)) / (x1 - x0);
+      }
+    }
+    return curve[curve.length - 1][1];
+  }
+
+  function renderSample() {
+    const from = $("origin").value, to = $("dest").value;
+    const po = ix.ports[from], pd = ix.ports[to];
+    if (!po || !pd) { $("flag").hidden = false; $("flag").textContent = "Choose a port of loading and a port of discharge."; return; }
+    if (from === to) { $("flag").hidden = false; $("flag").textContent = "The two ports are the same."; return; }
+
+    const rt = (ix.routes[from] && ix.routes[from][to]) || null;
+    const d = (ix.dist[from] && ix.dist[from][to]) || null;
+    if (!d) { $("flag").hidden = false; $("flag").textContent = "No distance for " + from + "–" + to + "."; return; }
+
+    const nm = Number(d.nm), s = chosenSailing(), feu = baseFeu(nm);
+    setNumber("sample", true);
+    $("d-service").textContent = (s ? s.service : (rt && rt.first_service) || "—").toUpperCase();
+    $("d-from").innerHTML = `<div class="k">From</div><div class="port">${esc(po.name)} (${esc(po.country)}) Port</div><div class="v">ETD ${s ? dfmt(s.etd) : "—"}</div><div class="v">${esc(po.locode)} · Cat. ${po.category}</div>`;
+    $("d-to").innerHTML = `<div class="k">To</div><div class="port">${esc(pd.name)} (${esc(pd.country)}) Port</div><div class="v">ETA ${s ? dfmt(s.eta) : "—"}</div><div class="v">${esc(pd.locode)} · Cat. ${pd.category}</div>`;
+    $("d-tt").innerHTML = `<div class="k">Estimated transportation days</div><div class="v">${s ? s.days : "—"}</div>`;
+    [$("d-to"), $("d-tt"), $("b-freight")].forEach(x => x.hidden = false);
+    $("d-co2").hidden = true;
+    $("d-dear").innerHTML = `This is a <b>sample</b>. It shows the route and what ocean freight on it starts at. A full quotation needs a course access code.`;
+    $("d-summary").innerHTML = cell("Route", [from, rt && rt.via, to].filter(Boolean).join("-"))
+      + cell("Service", s ? s.service : (rt && rt.first_service) || "—")
+      + cell("Vessel", s ? s.vessel : "To be confirmed")
+      + cell("Distance", `${nm.toLocaleString("en-GB")} NM`)
+      + cell("Agent at origin", po.agent);
+    $("t-freight").innerHTML = `<tr><th>Concept</th><th>Units</th><th>Amount</th></tr>`
+      + `<tr><td>Ocean freight, base rate for one 40ft unit</td><td class="num">1</td><td class="num">${feu === null ? "—" : eur(Math.round(feu * 100) / 100)}</td></tr>`;
+    $("h-sur").textContent = "Surcharges";
+    $("t-sur").innerHTML = `<tr class="info"><td colspan="3">Surcharges, terminal handling, port additionals and the emissions allowance are not part of a sample. They are what turns a base rate into a price, and they need a course access code.</td></tr>`;
+    $("d-total-l").textContent = "Total amount quotation";
+    $("d-total").innerHTML = `<span class="sample-total">Not shown in a sample</span>`;
+    $("calc").innerHTML = "<li>A sample shows the distance and the base rate the freight curve gives for it. The working behind a full quotation appears once a course code is entered.</li>";
+    last = null; issued = null;
+  }
+
   function render() {
     $("flag").hidden = true;
+    if (sample) return renderSample();
     let q;
     try { q = build(); } catch (e) { $("flag").hidden = false; $("flag").textContent = e.message; return; }
     last = q; issued = null;
@@ -119,6 +178,14 @@
   /* ---------- actions ---------- */
   async function issue(e) {
     e.preventDefault();
+    /* The server refuses this without a code too. Catching it here only saves
+       the learner a round trip and a confusing error; it is not the check that
+       matters. */
+    if (sample || !last) {
+      toast("A course access code is needed to issue a quotation.", true);
+      $("access-code").focus();
+      return;
+    }
     if (!$("name").value.trim() || !$("company").value.trim()) { toast("Add the contact name and company before issuing.", true); return; }
     if (!API.hasApi()) { toast("Saving is not connected yet. Add the Apps Script URL in js/config.js (README, step 3).", true); return; }
     const q = last, s = chosenSailing();
@@ -172,9 +239,61 @@
   }
 
   /* ---------- start ---------- */
-  API.loadData().then(({ db, source }) => {
+  /* ---------- course access ---------- */
+  function applyAccess(state) {
+    sample = state.sample;
+    const box = $("access");
+    box.hidden = !sample;
+    box.classList.toggle("ok", !sample);
+    const st = $("data-status");
+    st.textContent = sample
+      ? (state.source === "live" ? "Sample · no course code" : "Sample · offline")
+      : (state.source === "live" ? "Live data · Google Sheet" : "Offline snapshot");
+    st.classList.toggle("live", state.source === "live" && !sample);
+  }
+
+  async function unlock(e) {
+    e.preventDefault();
+    const entered = $("access-code").value.trim();
+    const box = $("access"), note = $("access-note"), title = $("access-title");
+    if (!entered) { $("access-code").focus(); return; }
+    $("access-go").disabled = true;
+    title.textContent = "Checking…";
+    try {
+      API.setCode(entered);
+      const state = await API.loadData();
+      if (state.sample) {
+        /* The code was refused, so the Desk stays in sample mode and says so.
+           Keeping the entered code would send it again on the next reload, so
+           it is dropped. */
+        API.setCode("");
+        box.classList.add("bad");
+        title.textContent = "That code was not accepted";
+        note.textContent =
+          "Check it with your trainer. The Desk is still showing a sample: route, distance and the base ocean freight, with no total.";
+        $("access-code").select();
+        return;
+      }
+      ix = E.index(state.db); sched = SCH.build(state.db.Sailings || []);
+      box.classList.remove("bad");
+      applyAccess(state);
+      fillSelects(); defaults(); refreshSailings(); render();
+      toast("Course code accepted. Full quotations are available.");
+    } catch (err) {
+      API.setCode("");
+      box.classList.add("bad");
+      title.textContent = "The code could not be checked";
+      note.textContent = err.message;
+    } finally {
+      $("access-go").disabled = false;
+    }
+  }
+
+  API.loadData().then((state) => {
+    const { db } = state;
     ix = E.index(db); sched = SCH.build(db.Sailings || []);
-    const st = $("data-status"); st.textContent = source === "live" ? "Live data · Google Sheet" : "Offline snapshot"; st.classList.toggle("live", source === "live");
+    applyAccess(state);
+    $("access-form").addEventListener("submit", unlock);
     fillSelects(); defaults(); TR.render({ gloss: $("gloss"), srcs: $("srcs"), qs: $("qs") });
     $("form").addEventListener("input", e => { if (e.target.id === "unit") setWeight(); if (["origin", "dest", "etd"].includes(e.target.id)) refreshSailings(); render(); });
     $("form").addEventListener("submit", issue);
