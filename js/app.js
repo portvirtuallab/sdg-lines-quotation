@@ -16,7 +16,13 @@
   /* ---------- setup ---------- */
   function fillSelects() {
     const ports = ix.db.Ports.slice().sort((a, b) => a.name.localeCompare(b.name));
-    const opts = ports.map(p => `<option value="${p.port}">${esc(p.name)} (${esc(p.country)}) · ${p.category}</option>`).join("");
+    /* The port category (A–D) used to be appended to every option. It is an
+       internal pricing band: it drives THC, BAF and the surcharges, and a bare
+       letter next to forty-two port names told a learner nothing while reading
+       like part of the port's identity. It is still taught, in the place where
+       it does some work: the charge breakdown explains it, and the glossary has
+       a "Port category" entry behind the "What is this?" button. */
+    const opts = ports.map(p => `<option value="${p.port}">${esc(p.name)} (${esc(p.country)})</option>`).join("");
     $("origin").innerHTML = opts; $("dest").innerHTML = opts;
     const groups = {};
     ix.db.Equipment.forEach(e => (groups[e.group] = groups[e.group] || []).push(e));
