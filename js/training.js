@@ -13,7 +13,7 @@
     kvk: ["KVK (Netherlands Chamber of Commerce) — Import terminology explained", "https://kvk.nl/en/international/difficult-import-terminology-explained"],
     glec: ["GHG Protocol — GLEC Framework for logistics emissions accounting", "https://ghgprotocol.org/blog/glec-framework-universal-method-logistics-emissions-accounting"],
     drewry: ["Drewry — World Container Index (freight benchmark used for the SDG tariff)", "https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry"],
-    sdg: ["SDG Lines — simulated shipping line by Escola Europea", "https://www.sdglines.com/"]
+    sdg: ["SDG Lines — simulated shipping line by Escola Europea", "https://portvirtuallab.github.io/sdglines/"]
   };
   const KEYS = Object.keys(SRC);
   const cite = k => `<a href="#src-${k}" data-src="${k}">[${KEYS.indexOf(k) + 1}]</a>`;
